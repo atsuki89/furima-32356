@@ -2,19 +2,16 @@
 
 ## users テーブル
 
-| Column                | Type   | Options     |
-| --------------------- | ------ | ----------- |
-| nickname              | string | null: false |
-| email                 | string | null: false |
-| password              | string | null: false |
-| password_confirmation | string | null: false |
-| last_name             | string | null: false |
-| first_name            | string | null: false |
-| last_name_kana        | string | null: false |
-| first_name_kana       | string | null: false |
-| birthday_year         | string | null: false |
-| birthday_month        | string | null: false |
-| birthday_day          | string | null: false |
+| Column                | Type   | Options                   |
+| --------------------- | ------ | ------------------------- |
+| nickname              | string | null: false               |
+| email                 | string | null: false, unique: true |
+| encrypted_password    | string | null: false               |
+| last_name             | string | null: false               |
+| first_name            | string | null: false               |
+| last_name_kana        | string | null: false               |
+| first_name_kana       | string | null: false               |
+| birthday　　　         | date   | null: false               |
 
 ### Association
 
@@ -24,22 +21,22 @@
 
 ## items テーブル
 
-| Column                    | Type       | Options                        |
-| ------------------------- | ---------- | ------------------------------ |
-| image                     | string     | null: false                    |
-| name                      | string     | null: false                    |
-| description               | text       | null: false                    |
-| price                     | integer    | null: false                    |
-| category                  | string     | null: false                    |
-| sipping_charges           | integer    | null: false                    |
-| sipping_area              | string     | null: false                    |
-| Estimated_shipping_date   | string     | null: false                    |
-| user                      | references | null: false, foreign_key: true |
+| Column                       | Type        | Options                        |
+| ---------------------------- | ----------- | ------------------------------ |
+| name                         | string      | null: false                    |
+| description                  | text        | null: false                    |
+| price                        | integer     | null: false                    |
+| category_id                  | integer     | null: false                    |
+| condition_id                 | integer     | null: false                    |
+| sipping_charges_id           | integer     | null: false                    |
+| sipping_area_id              | integer     | null: false                    |
+| Estimated_shipping_date_id   | integer     | null: false                    |
+| user                         | references  | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
-- has_one :purchase_records
+- belongs_to :user
+- has_one :purchase_record
 
 
 ## purchase_records テーブル
@@ -51,22 +48,24 @@
 
 ### Association
 
+- belongs_to :user
 - belongs_to :item
-- belongs_one :shipping_address
+- has_one :shipping_address
 
 
 ## shipping_address テーブル
 
-| Column           | Type       | Options     |
-| ---------------- | ---------- | ----------- |
-| postal_code      | string     | null: false |
-| province         | string     | null: false |
-| city             | string     | null: false |
-| address_Line1    | string     | null: false |
-| address_Line2    | string     |             |
-| phone_number     | string     | null: false |
+| Column                  | Type        | Options                        |
+| ----------------------- | ----------- | ------------------------------ |
+| postal_code             | string      | null: false                    |
+| sipping_area_id         | integer     | null: false                    |
+| city                    | string      | null: false                    |
+| address                 | string      | null: false                    |
+| building_name           | string      |                                |
+| phone_number            | string      | null: false                    |
+| purchase_record         | references  | null: false, foreign_key: true |
 
 
 ### Association
 
-- belongs_to :purchase_records
+- belongs_to :purchase_record
