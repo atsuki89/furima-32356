@@ -30,7 +30,7 @@
 | condition_id                 | integer     | null: false                    |
 | sipping_charges_id           | integer     | null: false                    |
 | sipping_area_id              | integer     | null: false                    |
-| Estimated_shipping_date_id   | integer     | null: false                    |
+| estimated_shipping_date_id   | integer     | null: false                    |
 | user                         | references  | null: false, foreign_key: true |
 
 ### Association
