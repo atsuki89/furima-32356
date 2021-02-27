@@ -28,8 +28,8 @@
 | price                        | integer     | null: false                    |
 | category_id                  | integer     | null: false                    |
 | condition_id                 | integer     | null: false                    |
-| sipping_charges_id           | integer     | null: false                    |
-| sipping_area_id              | integer     | null: false                    |
+| shipping_charge_id           | integer     | null: false                    |
+| shipping_area_id              | integer     | null: false                    |
 | estimated_shipping_date_id   | integer     | null: false                    |
 | user                         | references  | null: false, foreign_key: true |
 
@@ -58,7 +58,7 @@
 | Column                  | Type        | Options                        |
 | ----------------------- | ----------- | ------------------------------ |
 | postal_code             | string      | null: false                    |
-| sipping_area_id         | integer     | null: false                    |
+| shipping_area_id         | integer     | null: false                    |
 | city                    | string      | null: false                    |
 | address                 | string      | null: false                    |
 | building_name           | string      |                                |
