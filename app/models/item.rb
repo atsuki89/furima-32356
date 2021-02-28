@@ -10,11 +10,14 @@ class Item < ApplicationRecord
   belongs_to :estimated_shipping_date
 
   validates :name, :description, :price, :category_id, :condition_id, :shipping_charge_id, :shipping_area_id, :estimated_shipping_date_id, :image, presence: true
-  validates :category_id, numericality: { other_than: 1 }
-  validates :condition_id, numericality: { other_than: 1 }
-  validates :shipping_charge_id, numericality: { other_than: 1 }
-  validates :shipping_area_id, numericality: { other_than: 1 }
-  validates :estimated_shipping_date_id, numericality: { other_than: 1 }
+
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :condition_id
+    validates :shipping_charge_id
+    validates :shipping_area_id
+    validates :estimated_shipping_date_id
+  end
 
   validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
 

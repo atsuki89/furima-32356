@@ -30,25 +30,50 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it "カテゴリー情報が「---」だと商品を出品できない" do
+        @item.category_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
       it "商品の状態についての情報がないと商品を出品できない" do
         @item.condition_id = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it "商品の状態が「---」だと商品を出品できない" do
+        @item.condition_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
       it "配送料の負担についての情報がないと商品を出品できない" do
         @item.shipping_charge_id = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping charge can't be blank")
       end
+      it "配送料の負担が「---」だと商品を出品できない" do
+        @item.shipping_charge_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
+      end
       it "発送元の地域についての情報がないと商品を出品できない" do
         @item.shipping_area_id = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping area can't be blank")
       end
+      it "発送元の地域が「---」だと商品を出品できない" do
+        @item.shipping_area_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping area must be other than 1")
+      end
       it "発送までの日数についての情報がないと商品を出品できない" do
         @item.estimated_shipping_date_id = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Estimated shipping date can't be blank")
+      end
+      it "発送までの日数が「---」だと商品を出品できない" do
+        @item.estimated_shipping_date_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Estimated shipping date must be other than 1")
       end
       it "価格についての情報がないと商品を出品できない" do
         @item.price = ""
@@ -74,6 +99,21 @@ RSpec.describe Item, type: :model do
         @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
+      it "販売価格は全角文字では登録できないこと" do
+        @item.price = "あああ"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "販売価格は半角英数混合では登録できないこと" do
+        @item.price = "a1b2c3"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "販売価格は半角英語だけでは登録できないこと" do
+        @item.price = "abc"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
     end
   end
