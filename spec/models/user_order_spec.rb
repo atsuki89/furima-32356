@@ -72,11 +72,6 @@ RSpec.describe UserOrder, type: :model do
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Item can't be blank")
       end
-      it "電話番号は数字のみでないと登録できないこと" do
-        @user_order.phone_number = "090-1234-5678"
-        @user_order.valid?
-        expect(@user_order.errors.full_messages).to include("Phone number is invalid")
-      end
     end
 
   end

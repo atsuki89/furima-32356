@@ -1,12 +1,13 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
+  before_action :sold_out_item, only: [:index]
 
   def index
-    @user_order = UserOrder.new
     if current_user == @item.user
       redirect_to root_path
     end
+    @user_order = UserOrder.new
   end
 
   def create
@@ -39,5 +40,9 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def sold_out_item
+    redirect_to root_path if @item.order.present?
+   end
 
 end
