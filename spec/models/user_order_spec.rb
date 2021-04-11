@@ -52,8 +52,13 @@ RSpec.describe UserOrder, type: :model do
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
-      it "電話番号にはハイフンは不要で11桁以内であること" do
+      it "電話番号は数字のみでないと保存できない" do
         @user_order.phone_number = "090-1234-5678"
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Phone number is invalid")
+      end
+      it "電話番号は12桁以上だと保存できない" do
+        @user_order.phone_number = "090123456789"
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Phone number is invalid")
       end
